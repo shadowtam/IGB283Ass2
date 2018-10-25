@@ -5,7 +5,6 @@ using UnityEngine;
 public class Head : MonoBehaviour {
 	
 	public GameObject child;
-	public GameObject control;
 	
 	public Vector3 jointLocation;
 	public Vector3 jointOffset;
@@ -32,7 +31,7 @@ public class Head : MonoBehaviour {
 	void Start () {
 		
 		if (child != null) {
-			child.GetComponent<Limb>().MoveByOffset(jointOffset);
+			child.GetComponent<Head>().MoveByOffset(jointOffset);
 		}
 		
 	}
@@ -51,13 +50,13 @@ public class Head : MonoBehaviour {
 			targetAngle = 0.1f;
 			angle += 0.01f;
 			if (child != null) {
-				child.GetComponent<Limb>().RotateAroundPoint(jointLocation, angle, lastAngle);
+				child.GetComponent<Head>().RotateAroundPoint(jointLocation, angle, lastAngle);
 			}
 		} else {
 			targetAngle = -0.1f;
 			angle -= 0.01f;
 			if (child != null) {
-				child.GetComponent<Limb>().RotateAroundPoint(jointLocation, angle, lastAngle);
+				child.GetComponent<Head>().RotateAroundPoint(jointLocation, angle, lastAngle);
 			}
 		}
 
@@ -106,7 +105,7 @@ public class Head : MonoBehaviour {
 		jointLocation = T.MultiplyPoint(jointLocation);
 		
 		if (child != null) {
-			child.GetComponent<Limb>().MoveByOffset(offset);
+			child.GetComponent<Head>().MoveByOffset(offset);
 		}
 				
 	}
@@ -134,7 +133,7 @@ public class Head : MonoBehaviour {
 		jointLocation = M.MultiplyPoint(jointLocation);
 		
 		if (child != null){
-			child.GetComponent<Limb>().RotateAroundPoint(point, angle, lastAngle);
+			child.GetComponent<Head>().RotateAroundPoint(point, angle, lastAngle);
 		}
 		Debug.Log("rotated");
 		Debug.Log(angle);

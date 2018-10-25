@@ -6,19 +6,36 @@ using UnityEngine.UI;
 public class Limb : MonoBehaviour {
 	
 	public GameObject child;
-	public GameObject control;
+	// public GameObject control;
 	
 	public Vector3 jointLocation;
 	public Vector3 jointOffset;
+	public Vector4 colour;
+	
+	public int limbNum;
 	
 	public float angle;
 	public float lastAngle;
+	public float targetAngle;
+	public float initAngle;
+	public float[] jumpAngle = new float[2];
 	
 	public Vector3[] limbVertexLocations;
-	public Vector4 colour;
+	public Vector3 walkMovement = new Vector3(0.1f, 0, 0);
+	public Vector3 jumpMovement = new Vector3(0, 0.1f, 0);
 	
 	public Mesh mesh;
 	public Material material;
+	
+	public int dir = 0;
+	public bool head = false;
+	public bool LorR = false;
+	public bool angled = false;
+	public bool changeDir = false;
+	public bool doJump = false;
+	public bool jumpUp = false;
+	public bool jumpDown = false;
+	public bool jumpRest = true;
 	
 	void Awake () {
 		
@@ -33,27 +50,248 @@ public class Limb : MonoBehaviour {
 			child.GetComponent<Limb>().MoveByOffset(jointOffset);
 		}
 		
+		
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
 		lastAngle = angle;
-		if (control != null) {
-			angle = control.GetComponent<Slider>().value;
-			Debug.Log("hascontrol");
+		
+		if (!angled) {
+			if (dir == 0) {
+				if (child != null) {
+					child.GetComponent<Limb>().RotateAroundPoint(jointLocation, initAngle, lastAngle);
+					Debug.Log("haschild");
+					angle = initAngle;
+					lastAngle = angle;
+				}
+			} else {
+				if (child != null) {
+					child.GetComponent<Limb>().RotateAroundPoint(jointLocation, -initAngle, lastAngle);
+					Debug.Log("haschild");
+					angle = -initAngle;
+					lastAngle = angle;
+				}
+			}
+			angled = true;
 		}
+		
+		
+	
+		CheckLR();
+		
+		if (limbNum == 2) {
+			HeadNod();
+		}
+		
+		Walk();
+		Jump();
 		
 		if (child != null) {
 			child.GetComponent<Limb>().RotateAroundPoint(jointLocation, angle, lastAngle);
-			Debug.Log("haschild");
 		}
 		
 		mesh.RecalculateBounds();
+
 	}
 	
-	private void DrawLimb() {
+	
+	
+	public void Jump() {
+		if (doJump) {
+			if (dir == 0) {
+				// if (jumpRest) {
+					// if (jumpAngle[0] > 0) {
+						// if (angle < jumpAngle[0]){
+							// angle += 0.01f;
+							// if (child != null) {
+								// child.GetComponent<Limb>().Jump();
+							// }
+						// }  else {
+							// jumpDown = true;
+							// jumpRest = false;
+						// }
+					// } else {
+						// if (angle > jumpAngle[0]){
+							// angle -= 0.01f;
+							// if (child != null) {
+								// child.GetComponent<Limb>().Jump();
+							// }
+						// }  else {
+							// jumpDown = true;
+							// jumpRest = false;
+						// }
+					// }
+				// }
+				// if (jumpDown) {
+					// if (jumpAngle[1] > 0) {
+						// if (angle > jumpAngle[1]){
+							// angle -= 0.01f;
+							// if (child != null) {
+								// child.GetComponent<Limb>().Jump();
+							// }
+						// }  else {
+							// jumpDown = true;
+							// jumpRest = false;
+						// }
+					// } else {
+						// if (angle < jumpAngle[1]){
+							// angle += 0.01f;
+							// if (child != null) {
+								// child.GetComponent<Limb>().Jump();
+							// }
+						// }  else {
+							// jumpUp = true;
+							// jumpDown = false;
+						// }
+					// }
+					// if (this.transform.position.y < 3) {
+						// this.transform.position += jumpMovement;
+					// }
+				// }
+				// if (jumpUp) {
+					// if (initAngle > 0) {
+						// if (angle < initAngle){
+							// angle += 0.01f;
+							// if (child != null) {
+								// child.GetComponent<Limb>().Jump();
+							// }
+						// }  else {
+							// jumpRest = true;
+							// jumpUp = false;
+							// doJump = false;
+						// }
+					// } else {
+						// if (angle > initAngle){
+							// angle -= 0.01f;
+							// if (child != null) {
+								// child.GetComponent<Limb>().Jump();
+							// }
+						// }  else {
+							// jumpRest = true;
+							// jumpUp = false;
+							// doJump = false;
+						// }
+					// }
+					
+				// }
+				
+				if (this.transform.position.y < 1) {
+					jumpMovement.x = -0.1f;
+					this.transform.position += jumpMovement;
+				} else {
+					jumpMovement.x = 0;
+					doJump = false;
+				}
+			} else {
+				if (this.transform.position.y < 1) {
+					jumpMovement.x = 0.1f;
+					this.transform.position += jumpMovement;
+				} else {
+					jumpMovement.x = 0;
+					doJump = false;
+				}
+				
+			}
+			
+		} else {
+			if (this.transform.position.y > 0) {
+				this.transform.position -= jumpMovement;
+			}
+		}
 		
+			
+	}
+		
+		
+		
+	public void Walk() {
+		if (dir == 0) {
+			this.transform.position -= walkMovement;
+		} else {
+			this.transform.position += walkMovement;
+		}
+	}
+	
+	
+	
+	public void CheckLR() {
+		if (limbNum == 0) {
+			if (this.transform.position.x < -6 && dir != 1) {
+				changeDir = true;
+			} else if (this.transform.position.x > 6 && dir != 0) {
+				changeDir = true;
+			}
+		}
+		if (changeDir && dir == 0) {
+			angled = false;
+			dir = 1;
+			if (child != null) {
+				child.GetComponent<Limb>().changeDir = true;
+			}
+			changeDir = false;
+		} else if (changeDir && dir == 1) {
+			angled = false;
+			dir = 0;
+			if (child != null) {
+				child.GetComponent<Limb>().changeDir = true;
+			}
+			changeDir = false;
+		}
+	}
+	
+	
+	
+	private void HeadNod () {
+		if (dir == 0) {
+			if (targetAngle < 0 &&  angle < targetAngle) {
+				LorR = true;
+			} else if (targetAngle > 0 &&  angle > targetAngle){
+				LorR = false;
+			}
+			
+			if (LorR) {
+				targetAngle = 0.5f;
+				angle += 0.05f;
+				if (child != null) {
+					child.GetComponent<Limb>().RotateAroundPoint(jointLocation, angle, lastAngle);
+				}
+			} else {
+				targetAngle = -0.5f;
+				angle -= 0.05f;
+				if (child != null) {
+					child.GetComponent<Limb>().RotateAroundPoint(jointLocation, angle, lastAngle);
+				}
+			}
+
+		} else {
+			if (targetAngle > 0 &&  angle > targetAngle) {
+				LorR = true;
+			} else if (targetAngle < 0 &&  angle < targetAngle){
+				LorR = false;
+			}
+			
+			if (LorR) {
+				targetAngle = -0.5f;
+				angle -= 0.05f;
+				if (child != null) {
+					child.GetComponent<Limb>().RotateAroundPoint(jointLocation, angle, lastAngle);
+				}
+			} else {
+				targetAngle = 0.5f;
+				angle += 0.05f;
+				if (child != null) {
+					child.GetComponent<Limb>().RotateAroundPoint(jointLocation, angle, lastAngle);
+				}
+			}
+		}
+	}
+
+		
+		
+	private void DrawLimb() {
+
 		gameObject.AddComponent<MeshFilter>();
 		gameObject.AddComponent<MeshRenderer>();
 	
@@ -120,10 +358,7 @@ public class Limb : MonoBehaviour {
 		
 		if (child != null){
 			child.GetComponent<Limb>().RotateAroundPoint(point, angle, lastAngle);
-			Debug.Log("rotatedchild");
 		}
-		Debug.Log("rotated");
-		Debug.Log(angle);
 	}
 	
 	/////////////////////////////
