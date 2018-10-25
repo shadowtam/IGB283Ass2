@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using System;
 
 public class Limb : MonoBehaviour {
-	
+	const int numlimbs = 4;
+    const int groundlevel = 1;
 	public GameObject child;
 	// public GameObject control;
 	
@@ -36,8 +35,14 @@ public class Limb : MonoBehaviour {
 	public bool jumpUp = false;
 	public bool jumpDown = false;
 	public bool jumpRest = true;
-	
-	void Awake () {
+
+    public bool inputAvailable = true;
+
+    double startTime1 = -1;
+    double startTime2 = -1;
+
+
+    void Awake () {
 		
 		DrawLimb();
 		
@@ -45,8 +50,8 @@ public class Limb : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		
-		if (child != null) {
+        gameObject.AddComponent<BoxCollider2D>();
+        if (child != null) {
 			child.GetComponent<Limb>().MoveByOffset(jointOffset);
 		}
 		
@@ -56,7 +61,10 @@ public class Limb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		lastAngle = angle;
+        Vector3[] origPos = new Vector3[10];
+        Vector3[] stepSizes = new Vector3[10];
+
+        lastAngle = angle;
 		
 		if (!angled) {
 			if (dir == 0) {
@@ -84,9 +92,23 @@ public class Limb : MonoBehaviour {
 		if (limbNum == 2) {
 			HeadNod();
 		}
-		
-		Walk();
-		Jump();
+
+        if (inputAvailable) {
+            Walk();
+        }
+        Jump();
+
+
+
+        if (Input.GetKeyDown("a") && inputAvailable) {
+            dir = 0;
+        } else if (Input.GetKeyDown("d") && inputAvailable) {
+            dir = 1;
+        }
+
+        if(Input.GetKeyDown("z") && inputAvailable) {
+
+        }
 		
 		if (child != null) {
 			child.GetComponent<Limb>().RotateAroundPoint(jointLocation, angle, lastAngle);
@@ -98,8 +120,8 @@ public class Limb : MonoBehaviour {
 	
 	
 	
-	public void Jump() {
-		if (doJump) {
+	public void Jump1() {
+		//if (doJump) {
 			if (dir == 0) {
 				// if (jumpRest) {
 					// if (jumpAngle[0] > 0) {
@@ -195,16 +217,27 @@ public class Limb : MonoBehaviour {
 				
 			}
 			
-		} else {
-			if (this.transform.position.y > 0) {
-				this.transform.position -= jumpMovement;
-			}
-		}
+		//} else {
+		//	if (this.transform.position.y > 0) {
+		//		this.transform.position -= jumpMovement;
+		//	}
+		//}
 		
 			
 	}
 		
-		
+	public void Jump() {
+        if (startTime1 > Time.time) {
+            transform.position += new Vector3(0, 0.6f *Time.deltaTime);
+        } else if (startTime2 > Time.time) {
+            transform.position += new Vector3(0, -0.6f * Time.deltaTime);
+        } else {
+            if (Input.GetKeyDown("w") && inputAvailable) {
+                startTime1 = Time.time + 1;
+                startTime2 = Time.time + 2;
+            }
+        }
+    }	
 		
 	public void Walk() {
 		if (dir == 0) {
