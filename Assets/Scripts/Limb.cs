@@ -3,7 +3,7 @@ using System;
 
 public class Limb : MonoBehaviour {
 	const int numlimbs = 4;
-    const int groundlevel = 1;
+    const float groundlevel = 1.0f;
 	public GameObject child;
 	// public GameObject control;
 	
@@ -22,6 +22,8 @@ public class Limb : MonoBehaviour {
 	public Vector3[] limbVertexLocations;
 	public Vector3 walkMovement = new Vector3(0.1f, 0, 0);
 	public Vector3 jumpMovement = new Vector3(0, 0.1f, 0);
+    public Vector3 stoppedMovement = new Vector3(0.0f, 0.0f, 0);
+    Vector3 swapVector;
 	
 	public Mesh mesh;
 	public Material material;
@@ -38,8 +40,13 @@ public class Limb : MonoBehaviour {
 
     public bool inputAvailable = true;
 
+    float[] targetAngles = { };
+    float origAngle = 0.0f;
+
     double startTime1 = -1;
     double startTime2 = -1;
+    double startTime3 = -1;
+    double startTime4 = -1;
 
 
     void Awake () {
@@ -61,8 +68,10 @@ public class Limb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3[] origPos = new Vector3[10];
-        Vector3[] stepSizes = new Vector3[10];
+        //Mesh ms = gameObject.GetComponent<MeshFilter>().mesh;
+        //ms.RecalculateBounds();
+        //Vector3[] origPos = new Vector3[10];
+        //Vector3[] stepSizes = new Vector3[10];
 
         lastAngle = angle;
 		
@@ -96,6 +105,7 @@ public class Limb : MonoBehaviour {
         if (inputAvailable) {
             Walk();
         }
+        
         Jump();
 
 
@@ -106,9 +116,33 @@ public class Limb : MonoBehaviour {
             dir = 1;
         }
 
-        if(Input.GetKeyDown("z") && inputAvailable) {
+        if (startTime3 > Time.time) {
+            if (limbNum != 2) {
+                float sign = 1.0f;
+                if (dir == 1) {
+                    sign = -1.0f;
+                }
+                    angle += sign * Time.deltaTime;
+                }
 
+            
+        } else if (startTime4 > Time.time) {
+            float sign = 1.0f;
+            if (dir == 1) {
+                sign = -1.0f;
+            }
+            if (angle < origAngle) {
+                angle -= sign * Time.deltaTime;
+            }
+        } else if(Input.GetKey("z") && inputAvailable) { 
+            inputAvailable = false;
+            origAngle = angle;
+            startTime3 = Time.time + 2.5f;
+            startTime4 = Time.time + 5.0f;
+        } else {
+            inputAvailable = true;
         }
+        //angle -= 0.01f;
 		
 		if (child != null) {
 			child.GetComponent<Limb>().RotateAroundPoint(jointLocation, angle, lastAngle);
@@ -349,6 +383,7 @@ public class Limb : MonoBehaviour {
 		};
 		
 		mesh.triangles = new int[]{0, 1, 2, 0, 2, 3};
+        mesh.RecalculateBounds();
 		
 	}
 	
