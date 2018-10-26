@@ -28,7 +28,7 @@ public class limb2 : MonoBehaviour {
     public Mesh mesh;
     public Material material;
 
-    public int dir = 1;
+    public int dir = 0;
     public bool head = false;
     public bool LorR = false;
     public bool angled = false;
@@ -40,7 +40,6 @@ public class limb2 : MonoBehaviour {
 
     public bool inputAvailable = true;
 
-    float[] targetAngles = { };
     float origAngle = 0.0f;
 
     double startTime1 = -1;
@@ -57,21 +56,15 @@ public class limb2 : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        gameObject.AddComponent<BoxCollider2D>();
         if (child != null) {
             child.GetComponent<limb2>().MoveByOffset(jointOffset);
         }
-
-
-
+        dir = 1;
     }
 
     // Update is called once per frame
     void Update() {
-        //Mesh ms = gameObject.GetComponent<MeshFilter>().mesh;
-        //ms.RecalculateBounds();
-        //Vector3[] origPos = new Vector3[10];
-        //Vector3[] stepSizes = new Vector3[10];
+
 
         lastAngle = angle;
 
@@ -142,121 +135,13 @@ public class limb2 : MonoBehaviour {
         } else {
             inputAvailable = true;
         }
-        //angle -= 0.01f;
+
 
         if (child != null) {
             child.GetComponent<limb2>().RotateAroundPoint(jointLocation, angle, lastAngle);
         }
 
         mesh.RecalculateBounds();
-
-    }
-
-
-
-    public void Jump1() {
-        //if (doJump) {
-        if (dir == 0) {
-            // if (jumpRest) {
-            // if (jumpAngle[0] > 0) {
-            // if (angle < jumpAngle[0]){
-            // angle += 0.01f;
-            // if (child != null) {
-            // child.GetComponent<Limb>().Jump();
-            // }
-            // }  else {
-            // jumpDown = true;
-            // jumpRest = false;
-            // }
-            // } else {
-            // if (angle > jumpAngle[0]){
-            // angle -= 0.01f;
-            // if (child != null) {
-            // child.GetComponent<Limb>().Jump();
-            // }
-            // }  else {
-            // jumpDown = true;
-            // jumpRest = false;
-            // }
-            // }
-            // }
-            // if (jumpDown) {
-            // if (jumpAngle[1] > 0) {
-            // if (angle > jumpAngle[1]){
-            // angle -= 0.01f;
-            // if (child != null) {
-            // child.GetComponent<Limb>().Jump();
-            // }
-            // }  else {
-            // jumpDown = true;
-            // jumpRest = false;
-            // }
-            // } else {
-            // if (angle < jumpAngle[1]){
-            // angle += 0.01f;
-            // if (child != null) {
-            // child.GetComponent<Limb>().Jump();
-            // }
-            // }  else {
-            // jumpUp = true;
-            // jumpDown = false;
-            // }
-            // }
-            // if (this.transform.position.y < 3) {
-            // this.transform.position += jumpMovement;
-            // }
-            // }
-            // if (jumpUp) {
-            // if (initAngle > 0) {
-            // if (angle < initAngle){
-            // angle += 0.01f;
-            // if (child != null) {
-            // child.GetComponent<Limb>().Jump();
-            // }
-            // }  else {
-            // jumpRest = true;
-            // jumpUp = false;
-            // doJump = false;
-            // }
-            // } else {
-            // if (angle > initAngle){
-            // angle -= 0.01f;
-            // if (child != null) {
-            // child.GetComponent<Limb>().Jump();
-            // }
-            // }  else {
-            // jumpRest = true;
-            // jumpUp = false;
-            // doJump = false;
-            // }
-            // }
-
-            // }
-
-            if (this.transform.position.y < 1) {
-                jumpMovement.x = -0.1f;
-                this.transform.position += jumpMovement;
-            } else {
-                jumpMovement.x = 0;
-                doJump = false;
-            }
-        } else {
-            if (this.transform.position.y < 1) {
-                jumpMovement.x = 0.1f;
-                this.transform.position += jumpMovement;
-            } else {
-                jumpMovement.x = 0;
-                doJump = false;
-            }
-
-        }
-
-        //} else {
-        //	if (this.transform.position.y > 0) {
-        //		this.transform.position -= jumpMovement;
-        //	}
-        //}
-
 
     }
 
@@ -320,13 +205,13 @@ public class limb2 : MonoBehaviour {
 
             if (LorR) {
                 targetAngle = 0.5f;
-                angle += 0.05f;
+                angle += 0.1f;
                 if (child != null) {
                     child.GetComponent<limb2>().RotateAroundPoint(jointLocation, angle, lastAngle);
                 }
             } else {
                 targetAngle = -0.5f;
-                angle -= 0.05f;
+                angle -= 0.1f;
                 if (child != null) {
                     child.GetComponent<limb2>().RotateAroundPoint(jointLocation, angle, lastAngle);
                 }
@@ -341,13 +226,13 @@ public class limb2 : MonoBehaviour {
 
             if (LorR) {
                 targetAngle = -0.5f;
-                angle -= 0.05f;
+                angle -= 0.1f;
                 if (child != null) {
                     child.GetComponent<limb2>().RotateAroundPoint(jointLocation, angle, lastAngle);
                 }
             } else {
                 targetAngle = 0.5f;
-                angle += 0.05f;
+                angle += 0.1f;
                 if (child != null) {
                     child.GetComponent<limb2>().RotateAroundPoint(jointLocation, angle, lastAngle);
                 }

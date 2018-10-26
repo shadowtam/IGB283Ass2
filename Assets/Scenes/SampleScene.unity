@@ -230,7 +230,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 163419807}
-  - component: {fileID: 163419806}
   - component: {fileID: 163419805}
   m_Layer: 0
   m_Name: Base (1)
@@ -253,7 +252,7 @@ MonoBehaviour:
   child: {fileID: 1554183749}
   jointLocation: {x: 0, y: 0, z: 1}
   jointOffset: {x: 0, y: 0, z: 0}
-  colour: {x: 0, y: 0, z: 0, w: 0}
+  colour: {x: 0.6, y: 0.3, z: 0.1, w: 1}
   limbNum: 0
   angle: 0
   lastAngle: 0
@@ -262,49 +261,6 @@ MonoBehaviour:
   jumpAngle:
   - 0
   - 0
-  limbVertexLocations:
-  - {x: -1, y: -0.5, z: 0}
-  - {x: -1, y: 0, z: 1}
-  - {x: 1, y: 0, z: 1}
-  - {x: 1, y: -0.5, z: 1}
-  walkMovement: {x: 0.05, y: 0, z: 0}
-  jumpMovement: {x: 0.1, y: 0.1, z: 0}
-  stoppedMovement: {x: 0, y: 0, z: 0}
-  mesh: {fileID: 0}
-  material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  dir: 0
-  head: 0
-  LorR: 0
-  angled: 0
-  changeDir: 0
-  doJump: 0
-  jumpUp: 0
-  jumpDown: 0
-  jumpRest: 1
-  inputAvailable: 1
---- !u!114 &163419806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 163419804}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6ddac5569ffe0f44833043228fd47dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  child: {fileID: 1554183749}
-  jointLocation: {x: 0, y: 0, z: 1}
-  jointOffset: {x: 0, y: 0, z: 0}
-  colour: {x: 0.3, y: 0.6, z: 0, w: 1}
-  limbNum: 0
-  angle: 0
-  lastAngle: 0
-  targetAngle: 0
-  initAngle: -0.6
-  jumpAngle:
-  - -0.7
-  - -0.5
   limbVertexLocations:
   - {x: -1, y: -0.5, z: 0}
   - {x: -1, y: 0, z: 1}
@@ -1365,7 +1321,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 867599427}
-  - component: {fileID: 867599426}
   - component: {fileID: 867599425}
   m_Layer: 0
   m_Name: Head (1)
@@ -1388,50 +1343,7 @@ MonoBehaviour:
   child: {fileID: 0}
   jointLocation: {x: 0, y: 0, z: 1}
   jointOffset: {x: 0, y: 0, z: 1}
-  colour: {x: 0, y: 0, z: 0, w: 0}
-  limbNum: 3
-  angle: 0
-  lastAngle: 0
-  targetAngle: 0
-  initAngle: 0
-  jumpAngle:
-  - 0
-  - 0
-  limbVertexLocations:
-  - {x: -0.5, y: 0, z: 1}
-  - {x: -0.5, y: 0.5, z: 1}
-  - {x: 0.5, y: 0.5, z: 1}
-  - {x: 0.5, y: 0, z: 1}
-  walkMovement: {x: 0.05, y: 0, z: 0}
-  jumpMovement: {x: 0.1, y: 0.1, z: 0}
-  stoppedMovement: {x: 0, y: 0, z: 0}
-  mesh: {fileID: 0}
-  material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  dir: 0
-  head: 0
-  LorR: 0
-  angled: 0
-  changeDir: 0
-  doJump: 0
-  jumpUp: 0
-  jumpDown: 0
-  jumpRest: 1
-  inputAvailable: 1
---- !u!114 &867599426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 867599424}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6ddac5569ffe0f44833043228fd47dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  child: {fileID: 0}
-  jointLocation: {x: 0, y: 0, z: 1}
-  jointOffset: {x: 0, y: 0, z: 1}
-  colour: {x: 0.3, y: 0.6, z: 0, w: 1}
+  colour: {x: 0.6, y: 0.3, z: 0.1, w: 1}
   limbNum: 3
   angle: 0
   lastAngle: 0
@@ -1900,7 +1812,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1306798012}
-  - component: {fileID: 1306798011}
   - component: {fileID: 1306798010}
   m_Layer: 0
   m_Name: Upper (1)
@@ -1923,7 +1834,7 @@ MonoBehaviour:
   child: {fileID: 867599424}
   jointLocation: {x: 0, y: 2, z: 1}
   jointOffset: {x: 0, y: 2, z: 1}
-  colour: {x: 0, y: 0, z: 0, w: 0}
+  colour: {x: 0.6, y: 0.3, z: 0.1, w: 1}
   limbNum: 2
   angle: 0
   lastAngle: 0
@@ -1944,49 +1855,6 @@ MonoBehaviour:
   material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   dir: 0
   head: 0
-  LorR: 0
-  angled: 0
-  changeDir: 0
-  doJump: 0
-  jumpUp: 0
-  jumpDown: 0
-  jumpRest: 1
-  inputAvailable: 1
---- !u!114 &1306798011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1306798009}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6ddac5569ffe0f44833043228fd47dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  child: {fileID: 867599424}
-  jointLocation: {x: 0, y: 2, z: 1}
-  jointOffset: {x: 0, y: 2, z: 1}
-  colour: {x: 0.3, y: 0.6, z: 0, w: 1}
-  limbNum: 2
-  angle: 0
-  lastAngle: 0
-  targetAngle: 0
-  initAngle: -0.5
-  jumpAngle:
-  - -0.5
-  - -0.5
-  limbVertexLocations:
-  - {x: -0.15, y: 0, z: 1}
-  - {x: -0.15, y: 2, z: 1}
-  - {x: 0.15, y: 2, z: 1}
-  - {x: 0.15, y: 0, z: 1}
-  walkMovement: {x: 0.05, y: 0, z: 0}
-  jumpMovement: {x: 0.1, y: 0.1, z: 0}
-  stoppedMovement: {x: 0, y: 0, z: 0}
-  mesh: {fileID: 0}
-  material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  dir: 0
-  head: 1
   LorR: 0
   angled: 0
   changeDir: 0
@@ -2235,7 +2103,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1554183752}
-  - component: {fileID: 1554183751}
   - component: {fileID: 1554183750}
   m_Layer: 0
   m_Name: Lower (1)
@@ -2258,7 +2125,7 @@ MonoBehaviour:
   child: {fileID: 1306798009}
   jointLocation: {x: 0, y: 2, z: 1}
   jointOffset: {x: 0, y: 2, z: 1}
-  colour: {x: 0, y: 0, z: 0, w: 0}
+  colour: {x: 0.6, y: 0.3, z: 0.1, w: 1}
   limbNum: 1
   angle: 0
   lastAngle: 0
@@ -2267,49 +2134,6 @@ MonoBehaviour:
   jumpAngle:
   - 0
   - 0
-  limbVertexLocations:
-  - {x: -0.25, y: 0, z: 1}
-  - {x: -0.25, y: 2, z: 1}
-  - {x: 0.25, y: 2, z: 1}
-  - {x: 0.25, y: 0, z: 1}
-  walkMovement: {x: 0.05, y: 0, z: 0}
-  jumpMovement: {x: 0.1, y: 0.1, z: 0}
-  stoppedMovement: {x: 0, y: 0, z: 0}
-  mesh: {fileID: 0}
-  material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  dir: 0
-  head: 0
-  LorR: 0
-  angled: 0
-  changeDir: 0
-  doJump: 0
-  jumpUp: 0
-  jumpDown: 0
-  jumpRest: 1
-  inputAvailable: 1
---- !u!114 &1554183751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1554183749}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6ddac5569ffe0f44833043228fd47dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  child: {fileID: 1306798009}
-  jointLocation: {x: 0, y: 2, z: 1}
-  jointOffset: {x: 0, y: 2, z: 1}
-  colour: {x: 0.3, y: 0.6, z: 0, w: 1}
-  limbNum: 1
-  angle: 0
-  lastAngle: 0
-  targetAngle: 0
-  initAngle: 1.035
-  jumpAngle:
-  - 1.135
-  - 0.035
   limbVertexLocations:
   - {x: -0.25, y: 0, z: 1}
   - {x: -0.25, y: 2, z: 1}
