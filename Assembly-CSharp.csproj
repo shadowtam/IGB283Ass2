@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Head.cs" />
      <Compile Include="Assets\Scripts\IGB283Transform.cs" />
      <Compile Include="Assets\Scripts\Limb.cs" />
+     <Compile Include="Assets\Scripts\limb2.cs" />
      <Compile Include="Assets\Scripts\Matrix3x3.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>A:/github/igb283 real ass 2/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
